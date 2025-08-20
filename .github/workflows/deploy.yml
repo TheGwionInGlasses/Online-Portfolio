@@ -1,3 +1,5 @@
+name: Deploy
+
 on:
   workflow_dispatch:
 
@@ -41,25 +43,30 @@ jobs:
     needs: build
     environment:
       name: 'secrets'
-    
-    steps:
-    - name: ssh
-      uses: appleboy/ssh-action@v1
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USER }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        script: whoami
 
+    steps:
     - name: Download artifact from build job
       uses: actions/download-artifact@v4
       with:
         name: gwioninglasses-website
         path: .
     
+    
+    - name: Delete old files
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: rm -r /var/www/gwioninglasses.com/html/*
+
     - name: Update production
-      run:
-        rm -r /var/www/gwioninglasses.com/html/*
-        cp -r gwioninglasses-website/* /var/www/gwioninglasses.com/html
-        rm -r gwioninglasses-website
+      uses: appleboy/scp-action@v1
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        source: gwioninglasses-website/*
+        target: /var/www/gwioninglasses.com/html
