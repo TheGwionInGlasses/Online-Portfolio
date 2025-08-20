@@ -53,3 +53,14 @@ jobs:
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
         script: whoami
+
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v4
+      with:
+        name: gwioninglasses-website
+    
+    - name: Update production
+      run:
+        rm -r ${{ secrets.DIRECTORY }}
+        cp -r gwioninglasses-website/* ${{ secrets.DIRECTORY }}
+        rm -r gwioninglasses-website
