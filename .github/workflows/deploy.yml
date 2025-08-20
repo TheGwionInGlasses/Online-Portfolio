@@ -27,8 +27,29 @@ jobs:
     - name: Build
       run: npm run build
 
+    - name: Move WebGL build
+      run: cp -r src/pages/software-projects/Digital-Lancer-Tool/Digital\ Lancer\ Tool\ Build\ Web/Build dist/Build
+
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v4
       with:
         name: gwioninglasses-website
-        path: .
+        path: ./dist/
+
+  deploy:
+    permissions:
+      contents: none
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+    
+    steps:
+    - name: ssh
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        password: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: whoami
