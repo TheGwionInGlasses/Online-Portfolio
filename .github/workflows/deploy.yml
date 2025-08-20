@@ -70,5 +70,5 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           rm -r /var/www/gwioninglasses.com/html/* || true
-          cp -r gwioninglasses-website/* /var/www/gwioninglasses.com/html
-          rm -r gwioninglasses-website
+          cp -r distfiles/* /var/www/gwioninglasses.com/html || true
+          rm -r distfiles || true
