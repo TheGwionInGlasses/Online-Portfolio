@@ -19,7 +19,7 @@ export default function PersonalInformation() {
                         <td>Race: Tall Gnome</td>
                     </tr>
                     <tr>
-                        <td colSpan={2}>Class: Software Engineer</td>
+                        <td colSpan={2}>Class: Enjoyer of Cheese</td>
                         <td colSpan={1}>Alignment: Confused Emoji</td>
                     </tr>
                 </tbody>
