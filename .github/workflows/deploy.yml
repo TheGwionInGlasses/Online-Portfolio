@@ -49,6 +49,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: gwioninglasses-website
+        run: ls
     
     - name: Delete old files
       uses: appleboy/ssh-action@v1
