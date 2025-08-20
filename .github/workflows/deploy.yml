@@ -50,15 +50,6 @@ jobs:
       with:
         name: gwioninglasses-website
         path: distfiles
-    
-    - name: Delete old files
-      uses: appleboy/ssh-action@v1
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USER }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        script: rm -r /var/www/gwioninglasses.com/html/* || true
 
     - name: Update production
       uses: appleboy/scp-action@v1
@@ -67,5 +58,17 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-        source: distfiles/gwioninglasses-website/*
-        target: /var/www/gwioninglasses.com/html
+        source: distfiles/*
+        target: .
+
+    - name: Delete old files
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          rm -r /var/www/gwioninglasses.com/html/* || true
+          cp -r gwioninglasses-website/* /var/www/gwioninglasses.com/html
+          rm -r gwioninglasses-website
