@@ -1,6 +1,4 @@
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -58,9 +56,10 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: gwioninglasses-website
+        path: .
     
     - name: Update production
       run:
-        rm -r ${{ secrets.DIRECTORY }}
-        cp -r gwioninglasses-website/* ${{ secrets.DIRECTORY }}
+        rm -r /var/www/gwioninglasses.com/html/*
+        cp -r gwioninglasses-website/* /var/www/gwioninglasses.com/html
         rm -r gwioninglasses-website
