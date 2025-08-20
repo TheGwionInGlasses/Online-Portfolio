@@ -58,7 +58,7 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-        script: rm -r /var/www/gwioninglasses.com/html/*
+        script: rm -r /var/www/gwioninglasses.com/html/* || true
 
     - name: Update production
       uses: appleboy/scp-action@v1
