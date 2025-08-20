@@ -50,6 +50,7 @@ jobs:
       with:
         name: gwioninglasses-website
         path: .
+        run: tar -cvf gwioninglasses-website.tar ./website
     
     - name: Delete old files
       uses: appleboy/ssh-action@v1
@@ -67,5 +68,5 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-        source: gwioninglasses-website/*
+        source: website/*
         target: /var/www/gwioninglasses.com/html
