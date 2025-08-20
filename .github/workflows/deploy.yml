@@ -51,7 +51,6 @@ jobs:
         name: gwioninglasses-website
         path: .
     
-    
     - name: Delete old files
       uses: appleboy/ssh-action@v1
       with:
