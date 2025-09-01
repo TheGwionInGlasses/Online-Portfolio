@@ -137,6 +137,13 @@ th {
   border-width: 5px;
 }
 
+#MarkovChainText {
+  background-color: 5D4E6D;
+  border-style: inset;
+  border-color: 4F345A;
+  border-width: 5px;
+}
+
 #stat-block {
   width: 100px;
   display: flex;
